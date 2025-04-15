@@ -50,6 +50,18 @@ const nextConfig = {
   output: 'export',
   basePath: '/trecs',
   assetPrefix: '/trecs/',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
+  exportPathMap: async function () {
+    return {
+      '/': { page: '/' },
+      '/my-recs': { page: '/my-recs' },
+      '/search': { page: '/search' },
+      '/[slug]': { page: '/[slug]' },
+    }
+  }
 }
 
 module.exports = nextConfig 

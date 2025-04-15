@@ -33,13 +33,14 @@ interface Recommendation {
 
 export default function RecommendationPage() {
   const params = useParams()
+  const slug = params.slug as string
   const [recommendation, setRecommendation] = useState<Recommendation | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchRecommendation = async () => {
       try {
-        const response = await fetch(`/api/recommendations/${params.slug}`)
+        const response = await fetch(`/api/recommendations/${slug}`)
         if (!response.ok) {
           throw new Error('Failed to fetch recommendation')
         }
@@ -53,7 +54,7 @@ export default function RecommendationPage() {
     }
 
     fetchRecommendation()
-  }, [params.slug])
+  }, [slug])
 
   if (loading) {
     return (
@@ -74,105 +75,13 @@ export default function RecommendationPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-      <div className="px-4 py-6 sm:px-0">
-        <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-          <div className="px-4 py-5 sm:px-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h1 className="text-2xl font-bold text-gray-900">
-                  {recommendation.title}
-                </h1>
-                <p className="mt-1 text-sm text-green-600">
-                  {recommendation.category.name}
-                </p>
-              </div>
-              <span className="text-sm text-gray-500">
-                by {recommendation.user.name}
-              </span>
-            </div>
-            {recommendation.description && (
-              <p className="mt-4 text-gray-500">{recommendation.description}</p>
-            )}
-            <div className="mt-4 flex items-center space-x-4 text-sm text-gray-500">
-              {recommendation.website && (
-                <a
-                  href={recommendation.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center hover:text-green-600"
-                >
-                  <FaLink className="mr-1" />
-                  Website
-                </a>
-              )}
-              {recommendation.latitude && recommendation.longitude && (
-                <span className="flex items-center">
-                  <FaMapMarkerAlt className="mr-1" />
-                  Location
-                </span>
-              )}
-            </div>
-          </div>
-
-          {recommendation.latitude && recommendation.longitude && (
-            <div className="border-t border-gray-200">
-              <div className="h-96">
-                <Map
-                  center={[recommendation.latitude, recommendation.longitude]}
-                  zoom={13}
-                  markerPosition={[recommendation.latitude, recommendation.longitude]}
-                />
-              </div>
-            </div>
-          )}
-
-          {recommendation.history.length > 0 && (
-            <div className="border-t border-gray-200">
-              <div className="px-4 py-5 sm:px-6">
-                <h2 className="text-lg font-medium text-gray-900 flex items-center">
-                  <FaHistory className="mr-2" />
-                  History
-                </h2>
-                <div className="mt-4 space-y-4">
-                  {recommendation.history.map((entry) => (
-                    <div
-                      key={entry.id}
-                      className="bg-gray-50 p-4 rounded-lg"
-                    >
-                      <div className="flex justify-between items-start">
-                        <div>
-                          <h3 className="text-sm font-medium text-gray-900">
-                            {entry.title}
-                          </h3>
-                          {entry.description && (
-                            <p className="mt-1 text-sm text-gray-500">
-                              {entry.description}
-                            </p>
-                          )}
-                        </div>
-                        <span className="text-xs text-gray-500">
-                          {new Date(entry.createdAt).toLocaleDateString()}
-                        </span>
-                      </div>
-                      {entry.website && (
-                        <a
-                          href={entry.website}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-2 text-sm text-green-600 hover:text-green-500"
-                        >
-                          Website
-                        </a>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+    <main className="min-h-screen p-8">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-4xl font-bold mb-6">Recommendation: {slug}</h1>
+        <p className="text-lg mb-8">
+          This is a placeholder for the recommendation details page.
+        </p>
       </div>
-    </div>
+    </main>
   )
 } 
