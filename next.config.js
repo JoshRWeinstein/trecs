@@ -29,6 +29,7 @@ const nextConfig = {
         hostname: 'imgcdn.stablediffusionweb.com',
       }
     ],
+    unoptimized: true,
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -46,6 +47,9 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  output: 'export',
+  basePath: '/trecs',
+  assetPrefix: '/trecs/',
 }
 
 module.exports = nextConfig 
