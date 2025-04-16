@@ -1,10 +1,15 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
+  "outputDirectory": ".next",
   "installCommand": "npm install",
   "framework": "nextjs",
   "regions": ["iad1"],
   "env": {
-    "DATABASE_URL": "@database_url"
+    "DATABASE_URL": "postgres://postgres.yhvbwlprgjvpxjwnxszl:mux3PLqR2HFywFTe@aws-0-us-east-1.pooler.supabase.com:6543/postgres?sslmode=require&supa=base-pooler.x",
+    "NEXT_PUBLIC_SUPABASE_URL": "https://yhvbwlprgjvpxjwnxszl.supabase.co",
+    "NEXT_PUBLIC_SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlodmJ3bHByZ2p2cHhqd254c3psIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQ4NDU4MDksImV4cCI6MjA2MDQyMTgwOX0.y0T9kOHf8dM5OhoBKMxeN8dWhLVquJvj4KSyKqi11iw",
+    "NEXTAUTH_SECRET": "b8562407f87dca9c6e61ef7b625ab2c3aa2d3e666b006b78a7bf5444123b0a26",
+    "NEXTAUTH_URL": "https://trecs.vercel.app"
   }
 } 
