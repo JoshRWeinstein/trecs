@@ -58,7 +58,10 @@ const nextConfig = {
     return {
       '/': { page: '/' },
       '/my-recs': { page: '/my-recs' },
-      '/search': { page: '/search' }
+      '/search': { page: '/search' },
+      '/profile': { page: '/profile' },
+      '/profile/[username]': { page: '/profile/[username]' },
+      '/[slug]': { page: '/[slug]' }
     }
   }
 }
