@@ -29,7 +29,6 @@ const nextConfig = {
         hostname: 'imgcdn.stablediffusionweb.com',
       }
     ],
-    unoptimized: true,
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
