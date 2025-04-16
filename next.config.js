@@ -45,23 +45,6 @@ const nextConfig = {
   },
   typescript: {
     ignoreBuildErrors: true,
-  },
-  output: 'export',
-  basePath: '/trecs',
-  assetPrefix: '/trecs/',
-  trailingSlash: true,
-  images: {
-    unoptimized: true,
-  },
-  exportPathMap: async function () {
-    return {
-      '/': { page: '/' },
-      '/my-recs': { page: '/my-recs' },
-      '/search': { page: '/search' },
-      '/profile': { page: '/profile' },
-      '/profile/[username]': { page: '/profile/[username]' },
-      '/[slug]': { page: '/[slug]' }
-    }
   }
 }
 
