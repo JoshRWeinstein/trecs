@@ -45,6 +45,9 @@ const nextConfig = {
   },
   typescript: {
     ignoreBuildErrors: true,
+  },
+  env: {
+    DATABASE_URL: process.env.DATABASE_URL,
   }
 }
 
