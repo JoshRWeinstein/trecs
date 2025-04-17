@@ -97,7 +97,10 @@ export default function Home() {
                       <span className="text-sm text-gray-500">2h ago</span>
                     </div>
                     <div className="mt-4">
-                      <h3 className="text-xl font-semibold mb-2">{rec.title}</h3>
+                      <h3 className="text-xl font-semibold mb-2">
+                        {rec.title}
+                        <span className="text-sm text-gray-500 ml-2">({rec.recommendationCount} recommendations)</span>
+                      </h3>
                       <p className="text-gray-600 mb-4">{rec.description}</p>
                       <div className="flex items-center text-sm text-gray-500 mb-4">
                         <FaMapMarkerAlt className="mr-1" />
@@ -150,19 +153,19 @@ export default function Home() {
         <div className="mb-16">
           <h2 className="text-3xl font-bold mb-8 text-center">Popular Categories</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            <Link href="/categories?type=restaurants" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
+            <Link href="/search?category=restaurants" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
               <FaStar className="text-2xl text-green-600 mx-auto mb-2" />
               <span>Restaurants</span>
             </Link>
-            <Link href="/categories?type=hotels" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
+            <Link href="/search?category=hotels" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
               <FaMapMarkerAlt className="text-2xl text-green-600 mx-auto mb-2" />
               <span>Hotels</span>
             </Link>
-            <Link href="/categories?type=attractions" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
+            <Link href="/search?category=attractions" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
               <GiDinosaurBones className="text-2xl text-green-600 mx-auto mb-2" />
               <span>Attractions</span>
             </Link>
-            <Link href="/categories?type=shopping" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
+            <Link href="/search?category=shopping" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
               <FaShoppingBag className="text-2xl text-green-600 mx-auto mb-2" />
               <span>Shopping</span>
             </Link>
