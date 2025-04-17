@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, Suspense } from 'react'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 
-export default function SearchPage() {
+function SearchContent() {
   const [searchQuery, setSearchQuery] = useState('')
   const pathname = usePathname()
   const searchParams = useSearchParams()
@@ -51,5 +51,13 @@ export default function SearchPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchContent />
+    </Suspense>
   )
 } 
