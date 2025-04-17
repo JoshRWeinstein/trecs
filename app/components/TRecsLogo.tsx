@@ -14,7 +14,9 @@ const TRecsLogo = () => {
         height={40}
         className="rounded-full"
       />
-      <span className="text-xl font-bold text-gray-800">TRecs</span>
+      <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent tracking-wide">
+        TRecs
+      </span>
     </Link>
   );
 };
