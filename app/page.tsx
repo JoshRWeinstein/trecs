@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { FaSearch, FaUsers, FaCheckCircle, FaMapMarkerAlt, FaStar, FaHeart, FaComment, FaShare, FaFilter } from 'react-icons/fa'
+import { FaSearch, FaUsers, FaCheckCircle, FaMapMarkerAlt, FaStar, FaHeart, FaComment, FaShare, FaFilter, FaShoppingBag } from 'react-icons/fa'
 import { GiDinosaurBones } from 'react-icons/gi'
 
 // Mock data for recommendations
@@ -36,26 +36,83 @@ const mockRecommendations = [
 export default function Home() {
   return (
     <main className="min-h-screen p-8">
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-6">Welcome to TRecs</h1>
-        <p className="text-lg mb-8">
-          Discover and share your favorite recommendations with the world.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Link 
-            href="/my-recs" 
-            className="p-6 border rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <h2 className="text-2xl font-semibold mb-2">My Recommendations</h2>
-            <p>View and manage your personal recommendations</p>
-          </Link>
-          <Link 
-            href="/search" 
-            className="p-6 border rounded-lg hover:bg-gray-50 transition-colors"
-          >
-            <h2 className="text-2xl font-semibold mb-2">Search</h2>
-            <p>Find recommendations from others</p>
-          </Link>
+      <div className="max-w-6xl mx-auto">
+        {/* Hero Section */}
+        <div className="flex flex-col md:flex-row items-center justify-between mb-16">
+          <div className="md:w-1/2 mb-8 md:mb-0">
+            <h1 className="text-5xl font-bold mb-6">
+              Welcome to <span className="text-green-600">TRecs</span>
+            </h1>
+            <p className="text-xl mb-8 text-gray-600">
+              Discover and share your favorite recommendations with the world. From hidden gems to popular spots, find the best places to visit.
+            </p>
+            <div className="flex gap-4">
+              <Link 
+                href="/register" 
+                className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+              >
+                Get Started
+              </Link>
+              <Link 
+                href="/search" 
+                className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+              >
+                Browse Recommendations
+              </Link>
+            </div>
+          </div>
+          <div className="md:w-1/2 flex justify-center">
+            <Image
+              src="/images/trex.jpg"
+              alt="TRecs Mascot"
+              width={400}
+              height={400}
+              className="rounded-lg shadow-lg"
+              priority
+            />
+          </div>
+        </div>
+
+        {/* Features Section */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+            <FaSearch className="text-4xl text-green-600 mb-4" />
+            <h3 className="text-xl font-semibold mb-2">Discover</h3>
+            <p className="text-gray-600">Find amazing places recommended by real people.</p>
+          </div>
+          <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+            <FaUsers className="text-4xl text-green-600 mb-4" />
+            <h3 className="text-xl font-semibold mb-2">Share</h3>
+            <p className="text-gray-600">Share your favorite spots with the community.</p>
+          </div>
+          <div className="p-6 border rounded-lg hover:shadow-lg transition-shadow">
+            <FaCheckCircle className="text-4xl text-green-600 mb-4" />
+            <h3 className="text-xl font-semibold mb-2">Trust</h3>
+            <p className="text-gray-600">Get authentic recommendations from real experiences.</p>
+          </div>
+        </div>
+
+        {/* Categories Section */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold mb-8 text-center">Popular Categories</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <Link href="/categories?type=restaurants" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
+              <FaStar className="text-2xl text-green-600 mx-auto mb-2" />
+              <span>Restaurants</span>
+            </Link>
+            <Link href="/categories?type=hotels" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
+              <FaMapMarkerAlt className="text-2xl text-green-600 mx-auto mb-2" />
+              <span>Hotels</span>
+            </Link>
+            <Link href="/categories?type=attractions" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
+              <GiDinosaurBones className="text-2xl text-green-600 mx-auto mb-2" />
+              <span>Attractions</span>
+            </Link>
+            <Link href="/categories?type=shopping" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
+              <FaShoppingBag className="text-2xl text-green-600 mx-auto mb-2" />
+              <span>Shopping</span>
+            </Link>
+          </div>
         </div>
       </div>
     </main>
