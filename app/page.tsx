@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { FaSearch, FaUsers, FaCheckCircle, FaMapMarkerAlt, FaStar, FaHeart, FaComment, FaShare, FaFilter, FaShoppingBag } from 'react-icons/fa'
+import { FaSearch, FaUsers, FaCheckCircle, FaMapMarkerAlt, FaStar, FaHeart, FaComment, FaShare, FaFilter, FaShoppingBag, FaCrown } from 'react-icons/fa'
 import { GiDinosaurBones } from 'react-icons/gi'
 
 // Mock data for recommendations
@@ -14,7 +14,9 @@ const mockRecommendations = [
     recommendationCount: 1243,
     user: {
       name: 'Sarah M.',
-      avatar: 'https://i.pravatar.cc/150?img=1'
+      avatar: 'https://i.pravatar.cc/150?img=1',
+      crowns: 1250,
+      level: 'Expert'
     },
     image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
   },
@@ -27,7 +29,9 @@ const mockRecommendations = [
     recommendationCount: 987,
     user: {
       name: 'Mike T.',
-      avatar: 'https://i.pravatar.cc/150?img=2'
+      avatar: 'https://i.pravatar.cc/150?img=2',
+      crowns: 850,
+      level: 'Pro'
     },
     image: 'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80'
   }
@@ -38,38 +42,88 @@ export default function Home() {
     <main className="min-h-screen p-8">
       <div className="max-w-6xl mx-auto">
         {/* Hero Section */}
-        <div className="flex flex-col md:flex-row items-center justify-between mb-16">
-          <div className="md:w-1/2 mb-8 md:mb-0">
-            <h1 className="text-5xl font-bold mb-6">
-              Welcome to <span className="text-green-600">TRecs</span>
-            </h1>
-            <p className="text-xl mb-8 text-gray-600">
-              Discover and share your favorite recommendations with the world. From hidden gems to popular spots, find the best places to visit.
-            </p>
-            <div className="flex gap-4">
-              <Link 
-                href="/register" 
-                className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-              >
-                Get Started
-              </Link>
-              <Link 
-                href="/search" 
-                className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
-              >
-                Browse Recommendations
-              </Link>
-            </div>
+        <div className="mb-16">
+          <h1 className="text-5xl font-bold mb-6 text-center">
+            Welcome to <span className="bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">TRecs</span>
+          </h1>
+          <p className="text-xl mb-8 text-gray-600 text-center max-w-2xl mx-auto">
+            Discover and share your favorite recommendations with the world. From hidden gems to popular spots, find the best places to visit.
+          </p>
+          <div className="flex gap-4 justify-center">
+            <Link 
+              href="/register" 
+              className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+            >
+              Get Started
+            </Link>
+            <Link 
+              href="/search" 
+              className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
+            >
+              Browse Recommendations
+            </Link>
           </div>
-          <div className="md:w-1/2 flex justify-center">
-            <Image
-              src="/images/trex.jpg"
-              alt="TRecs Mascot"
-              width={400}
-              height={400}
-              className="rounded-lg shadow-lg"
-              priority
-            />
+        </div>
+
+        {/* Recent Recommendations Feed */}
+        <div className="mb-16">
+          <h2 className="text-3xl font-bold mb-8">Recent Recommendations</h2>
+          <div className="space-y-6">
+            {mockRecommendations.map((rec) => (
+              <div key={rec.id} className="bg-white rounded-lg shadow-sm p-6 hover:shadow-md transition-shadow">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0">
+                    <Image
+                      src={rec.user.avatar}
+                      alt={rec.user.name}
+                      width={48}
+                      height={48}
+                      className="rounded-full"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <Link href={`/profile/${rec.user.name.toLowerCase().replace(' ', '')}`} className="font-semibold hover:text-green-600">
+                          {rec.user.name}
+                        </Link>
+                        <div className="flex items-center text-sm text-gray-500">
+                          <FaCrown className="text-yellow-500 mr-1" />
+                          <span>{rec.user.crowns} crowns</span>
+                          <span className="mx-2">•</span>
+                          <span className="text-green-600 font-medium">{rec.user.level}</span>
+                        </div>
+                      </div>
+                      <span className="text-sm text-gray-500">2h ago</span>
+                    </div>
+                    <div className="mt-4">
+                      <h3 className="text-xl font-semibold mb-2">{rec.title}</h3>
+                      <p className="text-gray-600 mb-4">{rec.description}</p>
+                      <div className="flex items-center text-sm text-gray-500 mb-4">
+                        <FaMapMarkerAlt className="mr-1" />
+                        <span>{rec.location}</span>
+                        <span className="mx-2">•</span>
+                        <span>{rec.category}</span>
+                      </div>
+                      <div className="flex items-center space-x-4">
+                        <button className="flex items-center text-gray-500 hover:text-green-600">
+                          <FaHeart className="mr-1" />
+                          <span>{rec.recommendationCount}</span>
+                        </button>
+                        <button className="flex items-center text-gray-500 hover:text-green-600">
+                          <FaComment className="mr-1" />
+                          <span>Comment</span>
+                        </button>
+                        <button className="flex items-center text-gray-500 hover:text-green-600">
+                          <FaShare className="mr-1" />
+                          <span>Share</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
