@@ -29,6 +29,8 @@ const nextConfig = {
         hostname: 'imgcdn.stablediffusionweb.com',
       }
     ],
+    unoptimized: true,
+    domains: ['lh3.googleusercontent.com', 'avatars.githubusercontent.com'],
   },
   webpack: (config, { isServer }) => {
     if (!isServer) {
@@ -41,13 +43,26 @@ const nextConfig = {
     return config
   },
   experimental: {
-    serverExternalPackages: ['@prisma/client'],
+    serverComponentsExternalPackages: ['@prisma/client'],
+    serverActions: true,
   },
   typescript: {
     ignoreBuildErrors: true,
   },
-  env: {
-    DATABASE_URL: process.env.DATABASE_URL,
+  output: 'export',
+  basePath: '/trecs',
+  assetPrefix: '/trecs/',
+  trailingSlash: true,
+  images: {
+    unoptimized: true,
+  },
+  exportPathMap: async function () {
+    return {
+      '/': { page: '/' },
+      '/my-recs': { page: '/my-recs' },
+      '/search': { page: '/search' },
+      '/[slug]': { page: '/[slug]' },
+    }
   }
 }
 
