@@ -1,13 +1,18 @@
 'use client'
 
-import { useState, useEffect } from 'react'
-import { useSearchParams } from 'next/navigation'
+import { useState } from 'react'
 import Link from 'next/link'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState('')
+  const router = useRouter()
   const searchParams = useSearchParams()
-  const category = searchParams.get('category')
+  const category = searchParams?.get('category')
+
+  if (!searchParams) {
+    return null
+  }
 
   return (
     <main className="min-h-screen p-8">
