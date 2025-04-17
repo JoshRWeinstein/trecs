@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, Suspense } from 'react'
-import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
 
 function SearchContent() {
@@ -14,22 +13,7 @@ function SearchContent() {
     <main className="min-h-screen p-8">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold mb-6">
-          Recommendations:{' '}
-          {category && (
-            <>
-              <Link 
-                href="/search?category=food-and-drink" 
-                className="text-green-600 hover:text-green-700 hover:underline"
-              >
-                Food and Drink
-              </Link>
-              {' > '}
-              <span className="text-gray-800">
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </span>
-            </>
-          )}
-          {!category && 'Search Recommendations'}
+          {category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Search Recommendations'}
         </h1>
         {!category && (
           <div className="mb-8">
