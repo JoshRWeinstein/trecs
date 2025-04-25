@@ -6,12 +6,12 @@ const globalForPrisma = globalThis as unknown as {
 
 // Get the Supabase connection string from environment variables
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
 if (!supabaseUrl || !supabaseKey) {
   console.error('Missing required Supabase environment variables:')
   console.error('NEXT_PUBLIC_SUPABASE_URL:', supabaseUrl ? 'Set' : 'Missing')
-  console.error('NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY:', supabaseKey ? 'Set' : 'Missing')
+  console.error('SUPABASE_SERVICE_ROLE_KEY:', supabaseKey ? 'Set' : 'Missing')
   throw new Error('Missing required Supabase environment variables')
 }
 
