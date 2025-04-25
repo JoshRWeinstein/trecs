@@ -15,8 +15,11 @@ if (!supabaseUrl || !supabaseKey) {
   throw new Error('Missing required Supabase environment variables')
 }
 
+// Extract the host from the Supabase URL
+const supabaseHost = new URL(supabaseUrl).hostname
+
 // Construct the PostgreSQL connection string for Supabase
-const databaseUrl = `postgresql://postgres:${supabaseKey}@db.yhvbwlprgjvpxjwnxszl.supabase.co:5432/postgres`
+const databaseUrl = `postgresql://postgres:${supabaseKey}@${supabaseHost}:5432/postgres`
 
 console.log('Database URL:', databaseUrl.replace(supabaseKey, '[REDACTED]'))
 
