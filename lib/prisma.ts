@@ -4,24 +4,15 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
-// Get the Supabase connection string from environment variables
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+// Get the database URL from environment variables
+const databaseUrl = process.env.DATABASE_URL
 
-if (!supabaseUrl || !supabaseKey) {
-  console.error('Missing required Supabase environment variables:')
-  console.error('NEXT_PUBLIC_SUPABASE_URL:', supabaseUrl ? 'Set' : 'Missing')
-  console.error('SUPABASE_SERVICE_ROLE_KEY:', supabaseKey ? 'Set' : 'Missing')
-  throw new Error('Missing required Supabase environment variables')
+if (!databaseUrl) {
+  console.error('Missing required DATABASE_URL environment variable')
+  throw new Error('Missing required DATABASE_URL environment variable')
 }
 
-// Extract the project reference from the Supabase URL
-const projectRef = new URL(supabaseUrl).hostname.split('.')[0]
-
-// Construct the PostgreSQL connection string for Supabase
-const databaseUrl = `postgresql://postgres.${projectRef}:${supabaseKey}@aws-0-us-west-1.pooler.supabase.com:5432/postgres`
-
-console.log('Database URL:', databaseUrl.replace(supabaseKey, '[REDACTED]'))
+console.log('Database URL:', databaseUrl.replace(/\/\/[^:]+:[^@]+@/, '//[REDACTED]@'))
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({
   log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
