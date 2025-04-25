@@ -13,7 +13,7 @@ if (!supabaseUrl || !supabaseKey) {
 }
 
 // Construct the PostgreSQL connection string for Supabase
-const databaseUrl = `postgresql://postgres.yhvbwlprgjvpxjwnxszl:${supabaseKey}@aws-0-us-west-1.pooler.supabase.com:5432/postgres`
+const databaseUrl = `postgresql://postgres:${supabaseKey}@db.yhvbwlprgjvpxjwnxszl.supabase.co:5432/postgres`
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({
   log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
