@@ -14,7 +14,6 @@ export async function POST(req: Request) {
     const body = await req.json()
     const { name, email, password } = userSchema.parse(body)
 
-    // Check if user already exists
     const existingUser = await prisma.user.findUnique({
       where: { email },
     })
@@ -26,10 +25,8 @@ export async function POST(req: Request) {
       )
     }
 
-    // Hash the password
     const hashedPassword = await hash(password, 12)
 
-    // Create the user
     const user = await prisma.user.create({
       data: {
         name,
@@ -38,16 +35,11 @@ export async function POST(req: Request) {
       },
     })
 
-    // Remove password from response
-    const { password: _, ...userWithoutPassword } = user
-
     return NextResponse.json(
-      { message: 'User created successfully', user: userWithoutPassword },
+      { message: 'User created successfully' },
       { status: 201 }
     )
   } catch (error) {
-    console.error('Registration error:', error)
-    
     if (error instanceof z.ZodError) {
       return NextResponse.json(
         { message: error.errors[0].message },
@@ -55,6 +47,7 @@ export async function POST(req: Request) {
       )
     }
 
+    console.error('Registration error:', error)
     return NextResponse.json(
       { message: 'Something went wrong' },
       { status: 500 }
