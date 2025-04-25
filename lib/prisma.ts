@@ -5,7 +5,7 @@ const globalForPrisma = globalThis as unknown as {
 }
 
 // Get the database URL from environment variables
-const databaseUrl = process.env.DATABASE_URL
+const databaseUrl = process.env.DATABASE_URL || 'postgresql://postgres:[YOUR-PASSWORD]@db.yhvbwlprgjvpxjwnxszl.supabase.co:5432/postgres'
 
 if (!databaseUrl) {
   console.error('Missing required DATABASE_URL environment variable')
