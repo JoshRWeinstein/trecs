@@ -19,7 +19,7 @@ if (!supabaseUrl || !supabaseKey) {
 const projectRef = new URL(supabaseUrl).hostname.split('.')[0]
 
 // Construct the PostgreSQL connection string for Supabase
-const databaseUrl = `postgresql://postgres:${supabaseKey}@db.${projectRef}.supabase.co:5432/postgres`
+const databaseUrl = `postgresql://postgres.${projectRef}:${supabaseKey}@aws-0-us-west-1.pooler.supabase.com:5432/postgres`
 
 console.log('Database URL:', databaseUrl.replace(supabaseKey, '[REDACTED]'))
 
