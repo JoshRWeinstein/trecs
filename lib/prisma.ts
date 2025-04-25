@@ -9,11 +9,16 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY
 
 if (!supabaseUrl || !supabaseKey) {
+  console.error('Missing required Supabase environment variables:')
+  console.error('NEXT_PUBLIC_SUPABASE_URL:', supabaseUrl ? 'Set' : 'Missing')
+  console.error('NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY:', supabaseKey ? 'Set' : 'Missing')
   throw new Error('Missing required Supabase environment variables')
 }
 
 // Construct the PostgreSQL connection string for Supabase
 const databaseUrl = `postgresql://postgres:${supabaseKey}@db.yhvbwlprgjvpxjwnxszl.supabase.co:5432/postgres`
+
+console.log('Database URL:', databaseUrl.replace(supabaseKey, '[REDACTED]'))
 
 export const prisma = globalForPrisma.prisma ?? new PrismaClient({
   log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
