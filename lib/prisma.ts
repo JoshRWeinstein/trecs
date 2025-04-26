@@ -4,13 +4,17 @@ const globalForPrisma = globalThis as unknown as {
   prisma: PrismaClient | undefined
 }
 
-// Get the database URL from environment variables
-const databaseUrl = process.env.DATABASE_URL || 'postgresql://postgres:[YOUR-PASSWORD]@db.yhvbwlprgjvpxjwnxszl.supabase.co:5432/postgres'
+// Get Supabase credentials from environment variables
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY
 
-if (!databaseUrl) {
-  console.error('Missing required DATABASE_URL environment variable')
-  throw new Error('Missing required DATABASE_URL environment variable')
+if (!supabaseUrl || !supabaseKey) {
+  console.error('Missing required Supabase environment variables')
+  throw new Error('Missing required Supabase environment variables')
 }
+
+// Construct the database URL for Supabase
+const databaseUrl = `postgresql://postgres.${supabaseUrl.split('//')[1].split('.')[0]}:${supabaseKey}@aws-0-us-east-1.pooler.supabase.com:5432/postgres`
 
 console.log('Database URL:', databaseUrl.replace(/\/\/[^:]+:[^@]+@/, '//[REDACTED]@'))
 
