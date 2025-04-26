@@ -8,7 +8,7 @@ const TRecsLogo = () => {
   return (
     <Link href="/" className="flex items-center space-x-2">
       <Image
-        src="/images/trex.png"
+        src="/images/trex.jpg"
         alt="TRecs Logo"
         width={40}
         height={40}
