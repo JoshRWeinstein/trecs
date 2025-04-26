@@ -7,16 +7,10 @@ import Image from 'next/image';
 const TRecsLogo = () => {
   return (
     <Link href="/" className="flex items-center space-x-2">
-      <Image
-        src="/images/trex.jpg"
-        alt="TRecs Logo"
-        width={40}
-        height={40}
-        className="rounded-full"
-      />
-      <span className="text-xl font-bold bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent tracking-wide">
-        TRecs
-      </span>
+      <div className="w-10 h-10 rounded-full bg-yellow-500 flex items-center justify-center">
+        <span className="text-white font-bold text-xl">T</span>
+      </div>
+      <span className="text-xl font-bold text-gray-800">TRecs</span>
     </Link>
   );
 };
