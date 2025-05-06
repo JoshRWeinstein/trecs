@@ -55,14 +55,14 @@ export default function Home() {
               From hidden gems to popular spots, find and preserve the best places to visit.
             </p>
             <div className="flex gap-4 justify-center">
-              <Link 
+          <Link 
                 href="/register" 
                 className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-              >
+          >
                 Get Started
-              </Link>
-              <Link 
-                href="/search" 
+          </Link>
+          <Link 
+            href="/search" 
                 className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 Browse Recommendations
@@ -155,7 +155,7 @@ export default function Home() {
             <Link href="/search?category=shopping" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
               <FaShoppingBag className="text-2xl text-green-600 mx-auto mb-2" />
               <span>Shopping</span>
-            </Link>
+          </Link>
           </div>
         </div>
       </div>

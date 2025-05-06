@@ -7,8 +7,8 @@ import type { Metadata } from 'next'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'TRecs - The Recommendations',
-  description: 'Discover and share your favorite recommendations with the world',
+  title: 'TRecs - Restaurant Recommendations',
+  description: 'Discover and share your favorite restaurant recommendations',
 }
 
 export default function RootLayout({
