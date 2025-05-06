@@ -3,6 +3,7 @@
 import React, { useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useSession, signOut } from 'next-auth/react'
 import TRecsLogo from './TRecsLogo'
 import { FaSearch } from 'react-icons/fa'
 
@@ -10,6 +11,7 @@ const Navigation: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const pathname = usePathname()
+  const { data: session } = useSession()
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -56,18 +58,43 @@ const Navigation: React.FC = () => {
           </div>
 
           <div className="flex items-center space-x-4">
-            <Link
-              href="/login"
-              className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/register"
-              className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
-            >
-              Get Started
-            </Link>
+            {session ? (
+              <>
+                <Link
+                  href="/add-rec"
+                  className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+                >
+                  Add Rec
+                </Link>
+                <Link
+                  href="/profile"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600"
+                >
+                  Profile
+                </Link>
+                <button
+                  onClick={() => signOut()}
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/register"
+                  className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+                >
+                  Get Started
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>
