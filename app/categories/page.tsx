@@ -16,8 +16,8 @@ const categories = [
       'Bakeries',
       'Ice Cream Shops',
       'Coffee Shops',
-      'Wine Bars',
-      'Craft Beer',
+      'Dishes',
+      'Drinks',
       'Food Markets'
     ]
   },
@@ -121,15 +121,15 @@ const categories = [
     name: 'Books & Media',
     icon: FaBook,
     subcategories: [
-      'Bookstores',
+      'Books',
       'Libraries',
       'Magazines',
       'Comic Books',
       'Audiobooks',
       'Podcasts',
       'Streaming Services',
-      'Video Games',
-      'Board Games',
+      'Movies',
+      'Shows/Plays',
       'Educational Resources'
     ]
   },

@@ -78,7 +78,7 @@ export default function AddRecPage() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label htmlFor="recommendation" className="block text-sm font-medium text-gray-700 mb-2">
-              Your Recommendation
+              What's your favorite?
             </label>
             <div className="relative">
               <input
@@ -87,7 +87,7 @@ export default function AddRecPage() {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="My favorite restaurant is Joe's Pizza"
-                className="w-full px-4 py-3 text-lg border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="w-full px-4 py-3 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm"
                 disabled={isProcessing}
               />
               {isProcessing && (
@@ -104,14 +104,14 @@ export default function AddRecPage() {
           <button
             type="submit"
             disabled={isProcessing || !input.trim()}
-            className="w-full px-6 py-3 text-lg font-medium text-white bg-gradient-to-r from-green-500 to-emerald-600 rounded-lg hover:from-green-600 hover:to-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full px-6 py-3 text-lg font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-xl hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
           >
-            {isProcessing ? 'Adding...' : 'Add Recommendation'}
+            {isProcessing ? 'Adding...' : 'Share It'}
           </button>
         </form>
 
-        <div className="mt-12 p-6 bg-gray-50 rounded-lg">
-          <h2 className="text-xl font-semibold mb-4">Examples</h2>
+        <div className="mt-8 p-6 bg-gray-50 rounded-xl">
+          <h2 className="text-xl font-semibold mb-4">Try these examples</h2>
           <ul className="space-y-3 text-gray-600">
             <li>• My favorite coffee shop is Blue Bottle</li>
             <li>• My favorite hiking trail is Mount Tam</li>

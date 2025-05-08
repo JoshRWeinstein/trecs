@@ -61,20 +61,14 @@ const Navigation: React.FC = () => {
             {session ? (
               <>
                 <Link
-                  href="/add-rec"
-                  className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
-                >
-                  Add Rec
-                </Link>
-                <Link
                   href="/profile"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
                 >
                   Profile
                 </Link>
                 <button
                   onClick={() => signOut()}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
                 >
                   Sign Out
                 </button>
@@ -83,13 +77,13 @@ const Navigation: React.FC = () => {
               <>
                 <Link
                   href="/login"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-md hover:bg-green-700"
+                  className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-xl hover:from-green-600 hover:via-emerald-600 hover:to-green-700 shadow-md hover:shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
                 >
                   Get Started
                 </Link>

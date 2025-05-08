@@ -5,6 +5,7 @@ import AddRecButton from './components/AddRecButton'
 import TRecsLogo from './components/TRecsLogo'
 import type { Metadata } from 'next'
 import Providers from './components/Providers'
+import { usePathname } from 'next/navigation'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -18,13 +19,16 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const pathname = usePathname()
+  const showAddRecButton = pathname !== '/add-rec'
+
   return (
     <html lang="en" className="h-full bg-gray-50">
       <body className={`${inter.className} h-full`}>
         <Providers>
           <div className="min-h-full">
             <Navigation />
-            <AddRecButton />
+            {showAddRecButton && <AddRecButton />}
             <main>
               {children}
             </main>
