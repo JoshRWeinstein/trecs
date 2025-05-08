@@ -46,23 +46,23 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl -z-10" />
           <div className="relative p-8">
             <h1 className="text-5xl font-bold mb-6 text-center">
-              Welcome to <span className="bg-gradient-to-r from-green-600 to-emerald-500 bg-clip-text text-transparent">TRecs</span>
+              Welcome to <span className="text-black">TRecs</span>
             </h1>
             <p className="text-xl mb-4 text-gray-600 text-center max-w-2xl mx-auto">
               Save, discover, and share before they go the way of the dinosaur.
             </p>
             <p className="text-lg mb-8 text-gray-500 text-center max-w-2xl mx-auto">
-              From hidden gems to popular spots, find and preserve the best places to visit.
+              Find and preserve the best places to visit.
             </p>
             <div className="flex gap-4 justify-center">
-          <Link 
+              <Link 
                 href="/register" 
                 className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
-          >
+              >
                 Get Started
-          </Link>
-          <Link 
-            href="/search" 
+              </Link>
+              <Link 
+                href="/search" 
                 className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors"
               >
                 Browse Recommendations
@@ -155,7 +155,7 @@ export default function Home() {
             <Link href="/search?category=shopping" className="p-4 border rounded-lg hover:bg-gray-50 text-center">
               <FaShoppingBag className="text-2xl text-green-600 mx-auto mb-2" />
               <span>Shopping</span>
-          </Link>
+            </Link>
           </div>
         </div>
       </div>
