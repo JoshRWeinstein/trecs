@@ -10,6 +10,7 @@ export default function AddRecPage() {
   const { data: session } = useSession()
   const [category, setCategory] = useState('')
   const [name, setName] = useState('')
+  const [url, setUrl] = useState('')
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [showSignUpPrompt, setShowSignUpPrompt] = useState(false)
@@ -21,7 +22,7 @@ export default function AddRecPage() {
 
     try {
       if (!category.trim() || !name.trim()) {
-        setError('Please fill in both fields')
+        setError('Please fill in both required fields')
         setIsProcessing(false)
         return
       }
@@ -41,6 +42,7 @@ export default function AddRecPage() {
         body: JSON.stringify({
           title: name.trim(),
           categoryId: category.trim().toLowerCase(), // This will be used to find or create the category
+          url: url.trim() || undefined, // Only include URL if it's not empty
         }),
       })
 
@@ -91,7 +93,7 @@ export default function AddRecPage() {
           <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm p-6 space-y-4">
             <div>
               <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
-                What is it?
+                What is it? <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
@@ -102,13 +104,14 @@ export default function AddRecPage() {
                   placeholder="e.g. restaurant, coffee shop"
                   className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 shadow-sm bg-gray-50/50"
                   disabled={isProcessing}
+                  required
                 />
               </div>
             </div>
 
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                What's it called?
+                What's it called? <span className="text-red-500">*</span>
               </label>
               <div className="relative">
                 <input
@@ -119,17 +122,31 @@ export default function AddRecPage() {
                   placeholder="e.g. Plant Blossom, Blue Bottle"
                   className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 shadow-sm bg-gray-50/50"
                   disabled={isProcessing}
+                  required
                 />
-                {isProcessing && (
-                  <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
-                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-green-500"></div>
-                  </div>
-                )}
               </div>
-              {error && (
-                <p className="mt-1 text-xs text-red-600">{error}</p>
-              )}
             </div>
+
+            <div>
+              <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-1">
+                Website (optional)
+              </label>
+              <div className="relative">
+                <input
+                  type="url"
+                  id="url"
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  placeholder="https://example.com"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 shadow-sm bg-gray-50/50"
+                  disabled={isProcessing}
+                />
+              </div>
+            </div>
+
+            {error && (
+              <p className="text-xs text-red-600">{error}</p>
+            )}
 
             <button
               type="submit"
