@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          return null
+          throw new Error('Invalid credentials')
         }
 
         const user = await prisma.user.findUnique({
@@ -31,42 +31,36 @@ export const authOptions: NextAuthOptions = {
         })
 
         if (!user || !user.password) {
-          return null
+          throw new Error('Invalid credentials')
         }
 
         const isPasswordValid = await compare(credentials.password, user.password)
 
         if (!isPasswordValid) {
-          return null
+          throw new Error('Invalid credentials')
         }
 
         return {
           id: user.id,
-          email: user.email,
           name: user.name,
+          email: user.email,
           image: user.image,
         }
       }
     })
   ],
   callbacks: {
-    session: ({ session, token }) => {
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: token.id,
-        },
-      }
-    },
-    jwt: ({ token, user }) => {
+    async jwt({ token, user }) {
       if (user) {
-        return {
-          ...token,
-          id: user.id,
-        }
+        token.id = user.id
       }
       return token
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.id = token.id as string
+      }
+      return session
     },
   },
 }
