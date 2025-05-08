@@ -43,8 +43,8 @@ const Navigation: React.FC = () => {
                 href="/categories" 
                 className={`px-3 py-2 rounded-md text-sm font-medium ${
                   pathname === '/categories' 
-                    ? 'text-white bg-white/20' 
-                    : 'text-white/90 hover:text-white hover:bg-white/20'
+                    ? 'text-green-700 bg-green-100' 
+                    : 'text-gray-700 hover:text-green-600 hover:bg-green-100'
                 }`}
               >
                 Categories
@@ -57,13 +57,13 @@ const Navigation: React.FC = () => {
               <>
                 <Link
                   href="/profile"
-                  className="px-4 py-2 text-sm font-medium text-white hover:text-white/90 transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
                 >
                   Profile
                 </Link>
                 <button
                   onClick={() => signOut()}
-                  className="px-4 py-2 text-sm font-medium text-white hover:text-white/90 transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
                 >
                   Sign Out
                 </button>
@@ -72,13 +72,13 @@ const Navigation: React.FC = () => {
               <>
                 <Link
                   href="/login"
-                  className="px-4 py-2 text-sm font-medium text-white hover:text-white/90 transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 text-sm font-medium text-white bg-white/20 rounded-xl hover:bg-white/30 shadow-md hover:shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
+                  className="px-4 py-2 text-sm font-medium text-green-600 bg-white/80 rounded-xl hover:bg-white shadow-md hover:shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
                 >
                   Get Started
                 </Link>
