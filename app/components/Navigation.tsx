@@ -21,7 +21,7 @@ const Navigation: React.FC = () => {
   }
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-50">
+    <nav className="bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center space-x-8">
@@ -34,7 +34,7 @@ const Navigation: React.FC = () => {
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-64 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                className="w-64 px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-white focus:border-transparent bg-white/90 backdrop-blur-sm"
               />
               <button
                 type="submit"
@@ -48,8 +48,8 @@ const Navigation: React.FC = () => {
                 href="/categories" 
                 className={`px-3 py-2 rounded-md text-sm font-medium ${
                   pathname === '/categories' 
-                    ? 'text-green-600 bg-green-50' 
-                    : 'text-gray-700 hover:text-green-600 hover:bg-green-50'
+                    ? 'text-white bg-white/20' 
+                    : 'text-white/90 hover:text-white hover:bg-white/20'
                 }`}
               >
                 Categories
@@ -62,13 +62,13 @@ const Navigation: React.FC = () => {
               <>
                 <Link
                   href="/profile"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-white hover:text-white/90 transition-colors"
                 >
                   Profile
                 </Link>
                 <button
                   onClick={() => signOut()}
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-white hover:text-white/90 transition-colors"
                 >
                   Sign Out
                 </button>
@@ -77,13 +77,13 @@ const Navigation: React.FC = () => {
               <>
                 <Link
                   href="/login"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
+                  className="px-4 py-2 text-sm font-medium text-white hover:text-white/90 transition-colors"
                 >
                   Sign In
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-xl hover:from-green-600 hover:via-emerald-600 hover:to-green-700 shadow-md hover:shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
+                  className="px-4 py-2 text-sm font-medium text-white bg-white/20 rounded-xl hover:bg-white/30 shadow-md hover:shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
                 >
                   Get Started
                 </Link>
