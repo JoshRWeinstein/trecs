@@ -35,7 +35,7 @@ export default function LoginPage() {
 
   return (
     <div className="w-full max-w-md mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="w-full space-y-4">
+      <div className="w-full space-y-3">
         <div>
           <h2 className="text-center text-2xl font-bold text-gray-900">
             Sign in to your account
@@ -47,7 +47,7 @@ export default function LoginPage() {
             </Link>
           </p>
         </div>
-        <form className="mt-4 space-y-3" onSubmit={handleSubmit}>
+        <form className="mt-3 space-y-3" onSubmit={handleSubmit}>
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-600 px-3 py-2 rounded-md text-sm">
               {error}

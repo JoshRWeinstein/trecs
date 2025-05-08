@@ -18,7 +18,7 @@ export default function LayoutContent({
     <div className={`${isAuthPage ? 'h-screen' : 'min-h-screen'} flex flex-col`}>
       <Navigation />
       {showAddRecButton && <AddRecButton />}
-      <main className={`flex-grow ${isAuthPage ? 'flex items-center' : ''}`}>
+      <main className={`flex-grow ${isAuthPage ? 'flex items-start pt-8' : ''}`}>
         {children}
       </main>
       {!isAuthPage && (
