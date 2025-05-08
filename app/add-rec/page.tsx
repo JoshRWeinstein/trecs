@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
+import Link from 'next/link'
 
 export default function AddRecPage() {
   const router = useRouter()
@@ -10,6 +11,7 @@ export default function AddRecPage() {
   const [input, setInput] = useState('')
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [showSignUpPrompt, setShowSignUpPrompt] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -26,6 +28,12 @@ export default function AddRecPage() {
       }
 
       const [, category, title] = match
+
+      if (!session) {
+        setShowSignUpPrompt(true)
+        setIsProcessing(false)
+        return
+      }
 
       // Create the recommendation
       const response = await fetch('/api/recommendations', {
@@ -53,19 +61,6 @@ export default function AddRecPage() {
     }
   }
 
-  if (!session) {
-    return (
-      <main className="min-h-screen p-8">
-        <div className="max-w-2xl mx-auto text-center">
-          <h1 className="text-4xl font-bold mb-6">Sign in to Add Recommendations</h1>
-          <p className="text-lg text-gray-600 mb-8">
-            Please sign in to share your recommendations with the community.
-          </p>
-        </div>
-      </main>
-    )
-  }
-
   return (
     <main className="min-h-screen p-8">
       <div className="max-w-2xl mx-auto">
@@ -75,40 +70,63 @@ export default function AddRecPage() {
           For example: "My favorite restaurant is Joe's Pizza"
         </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label htmlFor="recommendation" className="block text-sm font-medium text-gray-700 mb-2">
-              What's your favorite?
-            </label>
-            <div className="relative">
-              <input
-                type="text"
-                id="recommendation"
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                placeholder="My favorite restaurant is Joe's Pizza"
-                className="w-full px-4 py-3 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm"
-                disabled={isProcessing}
-              />
-              {isProcessing && (
-                <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                  <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-green-500"></div>
-                </div>
+        {showSignUpPrompt ? (
+          <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+            <h2 className="text-2xl font-bold mb-4">Save Your Recommendation</h2>
+            <p className="text-gray-600 mb-6">
+              Create an account to save your recommendation and join our community of trusted reviewers.
+            </p>
+            <div className="space-y-4">
+              <Link
+                href="/register"
+                className="inline-block w-full px-6 py-3 text-lg font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-xl hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95"
+              >
+                Create Account
+              </Link>
+              <Link
+                href="/login"
+                className="inline-block w-full px-6 py-3 text-lg font-medium text-gray-700 hover:text-green-600"
+              >
+                Already have an account? Sign in
+              </Link>
+            </div>
+          </div>
+        ) : (
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="recommendation" className="block text-sm font-medium text-gray-700 mb-2">
+                What's your favorite?
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  id="recommendation"
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  placeholder="My favorite restaurant is Joe's Pizza"
+                  className="w-full px-4 py-3 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm"
+                  disabled={isProcessing}
+                />
+                {isProcessing && (
+                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                    <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-green-500"></div>
+                  </div>
+                )}
+              </div>
+              {error && (
+                <p className="mt-2 text-sm text-red-600">{error}</p>
               )}
             </div>
-            {error && (
-              <p className="mt-2 text-sm text-red-600">{error}</p>
-            )}
-          </div>
 
-          <button
-            type="submit"
-            disabled={isProcessing || !input.trim()}
-            className="w-full px-6 py-3 text-lg font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-xl hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
-          >
-            {isProcessing ? 'Adding...' : 'Share It'}
-          </button>
-        </form>
+            <button
+              type="submit"
+              disabled={isProcessing || !input.trim()}
+              className="w-full px-6 py-3 text-lg font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-xl hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+            >
+              {isProcessing ? 'Adding...' : 'Share It'}
+            </button>
+          </form>
+        )}
 
         <div className="mt-8 p-6 bg-gray-50 rounded-xl">
           <h2 className="text-xl font-semibold mb-4">Try these examples</h2>
