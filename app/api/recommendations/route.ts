@@ -4,6 +4,13 @@ import { prisma } from '@/lib/prisma'
 import { authOptions } from '../auth/[...nextauth]/route'
 import { z } from 'zod'
 
+interface SessionUser {
+  id: string
+  name?: string | null
+  email?: string | null
+  image?: string | null
+}
+
 const recommendationSchema = z.object({
   title: z.string().min(1, 'Title is required'),
   description: z.string().optional(),
@@ -20,10 +27,12 @@ export async function GET() {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
   }
 
+  const user = session.user as SessionUser
+
   try {
     const recommendations = await prisma.recommendation.findMany({
       where: {
-        userId: session.user.id,
+        userId: user.id,
       },
       include: {
         category: {
@@ -53,10 +62,30 @@ export async function POST(req: Request) {
     return NextResponse.json({ message: 'Unauthorized' }, { status: 401 })
   }
 
+  const user = session.user as SessionUser
+
   try {
     const body = await req.json()
-    const { title, description, website, latitude, longitude, categoryId } =
-      recommendationSchema.parse(body)
+    const { title, description, website, latitude, longitude, categoryId } = body
+
+    // Find or create the category
+    let category = await prisma.category.findFirst({
+      where: {
+        name: {
+          equals: categoryId,
+          mode: 'insensitive',
+        },
+      },
+    })
+
+    if (!category) {
+      category = await prisma.category.create({
+        data: {
+          name: categoryId,
+          slug: categoryId.toLowerCase().replace(/\s+/g, '-'),
+        },
+      })
+    }
 
     const recommendation = await prisma.recommendation.create({
       data: {
@@ -65,9 +94,12 @@ export async function POST(req: Request) {
         website,
         latitude,
         longitude,
-        categoryId,
-        userId: session.user.id,
+        categoryId: category.id,
+        userId: user.id,
         slug: title.toLowerCase().replace(/\s+/g, '-'),
+      },
+      include: {
+        category: true,
       },
     })
 
