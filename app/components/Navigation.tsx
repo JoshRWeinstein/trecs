@@ -69,20 +69,12 @@ const Navigation: React.FC = () => {
                 </button>
               </>
             ) : (
-              <>
-                <Link
-                  href="/login"
-                  className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
-                >
-                  Sign In
-                </Link>
-                <Link
-                  href="/register"
-                  className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-xl hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95"
-                >
-                  Get Started
-                </Link>
-              </>
+              <Link
+                href="/login"
+                className="px-4 py-2 text-sm font-medium text-gray-700 hover:text-green-600 transition-colors"
+              >
+                Sign In
+              </Link>
             )}
           </div>
 
@@ -138,7 +130,7 @@ const Navigation: React.FC = () => {
                 </Link>
                 <Link
                   href="/register"
-                  className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-green-600"
+                  className="block w-full px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-xl hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95"
                 >
                   Get Started
                 </Link>
