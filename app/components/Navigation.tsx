@@ -78,7 +78,7 @@ const Navigation: React.FC = () => {
                 </Link>
                 <Link
                   href="/register"
-                  className="px-4 py-2 text-sm font-medium text-green-600 bg-white/80 rounded-xl hover:bg-white shadow-md hover:shadow-lg transform transition-all duration-200 hover:scale-105 active:scale-95"
+                  className="px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-lg hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-102 hover:shadow-lg active:scale-98"
                 >
                   Get Started
                 </Link>
