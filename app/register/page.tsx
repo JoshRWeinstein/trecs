@@ -1,21 +1,27 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { signIn } from 'next-auth/react'
 import Link from 'next/link'
 
 export default function RegisterPage() {
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
+  const [isProcessing, setIsProcessing] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    setIsProcessing(true)
+    setError(null)
+
     const formData = new FormData(e.currentTarget)
     const name = formData.get('name') as string
     const email = formData.get('email') as string
     const password = formData.get('password') as string
 
     try {
+      // Register the user
       const response = await fetch('/api/register', {
         method: 'POST',
         headers: {
@@ -33,9 +39,49 @@ export default function RegisterPage() {
         throw new Error(data.message || 'Something went wrong')
       }
 
-      router.push('/login')
+      // Auto sign in
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      })
+
+      if (result?.error) {
+        throw new Error('Failed to sign in automatically')
+      }
+
+      // Check for pending recommendation
+      const pendingRec = localStorage.getItem('pendingRecommendation')
+      if (pendingRec) {
+        const { category, name: recName, url } = JSON.parse(pendingRec)
+        
+        // Submit the recommendation
+        const recResponse = await fetch('/api/recommendations', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            title: recName,
+            categoryId: category.toLowerCase(),
+            url,
+          }),
+        })
+
+        if (!recResponse.ok) {
+          throw new Error('Failed to create recommendation')
+        }
+
+        const data = await recResponse.json()
+        localStorage.removeItem('pendingRecommendation')
+        router.push(`/success?slug=${data.slug}`)
+      } else {
+        router.push('/my-recs')
+      }
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An error occurred')
+    } finally {
+      setIsProcessing(false)
     }
   }
 
@@ -106,9 +152,10 @@ export default function RegisterPage() {
           <div>
             <button
               type="submit"
-              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              disabled={isProcessing}
+              className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-102 hover:shadow-lg active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Register
+              {isProcessing ? 'Creating account...' : 'Create account'}
             </button>
           </div>
         </form>

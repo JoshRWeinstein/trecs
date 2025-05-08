@@ -28,6 +28,12 @@ export default function AddRecPage() {
       }
 
       if (!session) {
+        // Store recommendation data in localStorage
+        localStorage.setItem('pendingRecommendation', JSON.stringify({
+          category: category.trim(),
+          name: name.trim(),
+          url: url.trim() || undefined
+        }))
         setShowSignUpPrompt(true)
         setIsProcessing(false)
         return
@@ -41,8 +47,8 @@ export default function AddRecPage() {
         },
         body: JSON.stringify({
           title: name.trim(),
-          categoryId: category.trim().toLowerCase(), // This will be used to find or create the category
-          url: url.trim() || undefined, // Only include URL if it's not empty
+          categoryId: category.trim().toLowerCase(),
+          url: url.trim() || undefined,
         }),
       })
 
@@ -145,15 +151,15 @@ export default function AddRecPage() {
             </div>
 
             {error && (
-              <p className="text-xs text-red-600">{error}</p>
+              <div className="text-red-500 text-sm">{error}</div>
             )}
 
             <button
               type="submit"
-              disabled={isProcessing || !category.trim() || !name.trim()}
-              className="w-full mt-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-lg hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-102 hover:shadow-lg active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={isProcessing}
+              className="w-full px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-lg hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-102 hover:shadow-lg active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {isProcessing ? 'Adding...' : 'Share It'}
+              {isProcessing ? 'Submitting...' : 'Submit Recommendation'}
             </button>
           </form>
         )}
