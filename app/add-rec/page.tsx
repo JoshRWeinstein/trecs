@@ -60,9 +60,9 @@ export default function AddRecPage() {
 
   return (
     <main className="min-h-screen p-8">
-      <div className="max-w-2xl mx-auto">
-        <h1 className="text-4xl font-bold mb-6">Add a Recommendation</h1>
-        <p className="text-lg text-gray-600 mb-8">
+      <div className="max-w-xl mx-auto">
+        <h1 className="text-3xl font-bold mb-3 text-center">Add a Recommendation</h1>
+        <p className="text-sm text-gray-600 mb-8 text-center">
           Share your favorite places, products, or services.
         </p>
 
@@ -75,22 +75,22 @@ export default function AddRecPage() {
             <div className="space-y-4">
               <Link
                 href="/register"
-                className="inline-block w-full px-6 py-3 text-lg font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-xl hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95"
+                className="inline-block w-full px-6 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-lg hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-102 hover:shadow-lg active:scale-98"
               >
                 Create Account
               </Link>
               <Link
                 href="/login"
-                className="inline-block w-full px-6 py-3 text-lg font-medium text-gray-700 hover:text-green-600"
+                className="inline-block w-full px-6 py-2.5 text-sm font-medium text-gray-700 hover:text-green-600"
               >
                 Already have an account? Sign in
               </Link>
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="bg-white rounded-xl shadow-sm p-6 space-y-4">
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-1">
                 What is it?
               </label>
               <div className="relative">
@@ -99,15 +99,15 @@ export default function AddRecPage() {
                   id="category"
                   value={category}
                   onChange={(e) => setCategory(e.target.value)}
-                  placeholder="e.g. restaurant, coffee shop, hiking trail"
-                  className="w-full px-4 py-3 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm"
+                  placeholder="e.g. restaurant, coffee shop"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 shadow-sm bg-gray-50/50"
                   disabled={isProcessing}
                 />
               </div>
             </div>
 
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
                 What's it called?
               </label>
               <div className="relative">
@@ -116,48 +116,48 @@ export default function AddRecPage() {
                   id="name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. Plant Blossom, Blue Bottle, Mount Tam"
-                  className="w-full px-4 py-3 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm"
+                  placeholder="e.g. Plant Blossom, Blue Bottle"
+                  className="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-green-500 focus:border-green-500 shadow-sm bg-gray-50/50"
                   disabled={isProcessing}
                 />
                 {isProcessing && (
-                  <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                    <div className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-green-500"></div>
+                  <div className="absolute right-2 top-1/2 transform -translate-y-1/2">
+                    <div className="animate-spin rounded-full h-4 w-4 border-t-2 border-b-2 border-green-500"></div>
                   </div>
                 )}
               </div>
               {error && (
-                <p className="mt-2 text-sm text-red-600">{error}</p>
+                <p className="mt-1 text-xs text-red-600">{error}</p>
               )}
             </div>
 
             <button
               type="submit"
               disabled={isProcessing || !category.trim() || !name.trim()}
-              className="w-full px-6 py-3 text-lg font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-xl hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
+              className="w-full mt-2 px-4 py-2 text-sm font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-lg hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-102 hover:shadow-lg active:scale-98 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isProcessing ? 'Adding...' : 'Share It'}
             </button>
           </form>
         )}
 
-        <div className="mt-8 p-6 bg-gray-50 rounded-xl">
-          <h2 className="text-xl font-semibold mb-4">Try these examples</h2>
-          <div className="grid grid-cols-2 gap-4">
+        <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-100">
+          <h2 className="text-sm font-medium text-gray-900 mb-3">Try these examples</h2>
+          <div className="grid grid-cols-2 gap-3 text-xs">
             <div>
-              <p className="text-sm font-medium text-gray-900">What is it?</p>
+              <p className="font-medium text-gray-700">What is it?</p>
               <p className="text-gray-600">coffee shop</p>
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-900">What's it called?</p>
+              <p className="font-medium text-gray-700">What's it called?</p>
               <p className="text-gray-600">Blue Bottle</p>
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-900">What is it?</p>
+              <p className="font-medium text-gray-700">What is it?</p>
               <p className="text-gray-600">hiking trail</p>
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-900">What's it called?</p>
+              <p className="font-medium text-gray-700">What's it called?</p>
               <p className="text-gray-600">Mount Tam</p>
             </div>
           </div>
