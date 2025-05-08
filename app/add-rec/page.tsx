@@ -8,7 +8,8 @@ import Link from 'next/link'
 export default function AddRecPage() {
   const router = useRouter()
   const { data: session } = useSession()
-  const [input, setInput] = useState('')
+  const [category, setCategory] = useState('')
+  const [name, setName] = useState('')
   const [isProcessing, setIsProcessing] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [showSignUpPrompt, setShowSignUpPrompt] = useState(false)
@@ -19,15 +20,11 @@ export default function AddRecPage() {
     setError(null)
 
     try {
-      // Parse the natural language input
-      const match = input.match(/my favorite (.*?) is (.*)/i)
-      if (!match) {
-        setError('Please use the format "My favorite [type] is [name]"')
+      if (!category.trim() || !name.trim()) {
+        setError('Please fill in both fields')
         setIsProcessing(false)
         return
       }
-
-      const [, category, title] = match
 
       if (!session) {
         setShowSignUpPrompt(true)
@@ -42,7 +39,7 @@ export default function AddRecPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          title: title.trim(),
+          title: name.trim(),
           categoryId: category.trim().toLowerCase(), // This will be used to find or create the category
         }),
       })
@@ -66,8 +63,7 @@ export default function AddRecPage() {
       <div className="max-w-2xl mx-auto">
         <h1 className="text-4xl font-bold mb-6">Add a Recommendation</h1>
         <p className="text-lg text-gray-600 mb-8">
-          Share your favorite places, products, or services using natural language.
-          For example: "My favorite restaurant is Joe's Pizza"
+          Share your favorite places, products, or services.
         </p>
 
         {showSignUpPrompt ? (
@@ -94,16 +90,33 @@ export default function AddRecPage() {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label htmlFor="recommendation" className="block text-sm font-medium text-gray-700 mb-2">
-                What's your favorite?
+              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+                What is it?
               </label>
               <div className="relative">
                 <input
                   type="text"
-                  id="recommendation"
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  placeholder="My favorite restaurant is Joe's Pizza"
+                  id="category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
+                  placeholder="e.g. restaurant, coffee shop, hiking trail"
+                  className="w-full px-4 py-3 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm"
+                  disabled={isProcessing}
+                />
+              </div>
+            </div>
+
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                What's it called?
+              </label>
+              <div className="relative">
+                <input
+                  type="text"
+                  id="name"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="e.g. Plant Blossom, Blue Bottle, Mount Tam"
                   className="w-full px-4 py-3 text-lg border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent shadow-sm"
                   disabled={isProcessing}
                 />
@@ -120,7 +133,7 @@ export default function AddRecPage() {
 
             <button
               type="submit"
-              disabled={isProcessing || !input.trim()}
+              disabled={isProcessing || !category.trim() || !name.trim()}
               className="w-full px-6 py-3 text-lg font-medium text-white bg-gradient-to-r from-green-500 via-emerald-500 to-green-600 rounded-xl hover:from-green-600 hover:via-emerald-600 hover:to-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transform transition-all duration-200 hover:scale-105 hover:shadow-xl active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed shadow-lg"
             >
               {isProcessing ? 'Adding...' : 'Share It'}
@@ -130,12 +143,24 @@ export default function AddRecPage() {
 
         <div className="mt-8 p-6 bg-gray-50 rounded-xl">
           <h2 className="text-xl font-semibold mb-4">Try these examples</h2>
-          <ul className="space-y-3 text-gray-600">
-            <li>• My favorite coffee shop is Blue Bottle</li>
-            <li>• My favorite hiking trail is Mount Tam</li>
-            <li>• My favorite book is The Great Gatsby</li>
-            <li>• My favorite movie is The Godfather</li>
-          </ul>
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <p className="text-sm font-medium text-gray-900">What is it?</p>
+              <p className="text-gray-600">coffee shop</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-900">What's it called?</p>
+              <p className="text-gray-600">Blue Bottle</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-900">What is it?</p>
+              <p className="text-gray-600">hiking trail</p>
+            </div>
+            <div>
+              <p className="text-sm font-medium text-gray-900">What's it called?</p>
+              <p className="text-gray-600">Mount Tam</p>
+            </div>
+          </div>
         </div>
       </div>
     </main>
