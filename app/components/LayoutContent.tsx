@@ -11,66 +11,27 @@ export default function LayoutContent({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
-  const showAddRecButton = pathname !== '/add-rec'
+  const showAddRecButton = pathname !== '/add-rec' && pathname !== '/register'
 
   return (
-    <div className="min-h-full">
+    <div className="min-h-screen flex flex-col">
       <Navigation />
       {showAddRecButton && <AddRecButton />}
-      <main>
+      <main className="flex-grow">
         {children}
       </main>
-      <footer className="mt-auto border-t border-gray-200/50 bg-white/50 backdrop-blur-sm">
-        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-            <div className="col-span-1 md:col-span-2">
-              <div className="flex items-center">
-                <TRecsLogo />
-              </div>
-              <p className="mt-4 text-sm text-gray-600">
-                Share and discover your favorite things with the world. 
-                From restaurants to running shoes, find the best recommendations from people you trust.
-              </p>
+      <footer className="bg-green-50 border-t border-green-100 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <div className="flex items-center space-x-2 mb-4 md:mb-0">
+              <TRecsLogo />
+              <span className="text-sm text-gray-500">© {new Date().getFullYear()} TRecs. All rights reserved.</span>
             </div>
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900">Navigation</h3>
-              <ul className="mt-4 space-y-2">
-                <li>
-                  <a href="/" className="text-sm text-gray-600 hover:text-yellow-600 transition-colors">Home</a>
-                </li>
-                <li>
-                  <a href="/my-recs" className="text-sm text-gray-600 hover:text-yellow-600 transition-colors">My TRecs</a>
-                </li>
-                <li>
-                  <a href="/search" className="text-sm text-gray-600 hover:text-yellow-600 transition-colors">Search</a>
-                </li>
-                <li>
-                  <a href="/categories" className="text-sm text-gray-600 hover:text-yellow-600 transition-colors">Categories</a>
-                </li>
-              </ul>
+            <div className="flex space-x-6">
+              <a href="/about" className="text-sm text-gray-500 hover:text-green-600">About</a>
+              <a href="/privacy" className="text-sm text-gray-500 hover:text-green-600">Privacy</a>
+              <a href="/terms" className="text-sm text-gray-500 hover:text-green-600">Terms</a>
             </div>
-            <div>
-              <h3 className="text-sm font-semibold text-gray-900">Account</h3>
-              <ul className="mt-4 space-y-2">
-                <li>
-                  <a href="/login" className="text-sm text-gray-600 hover:text-yellow-600 transition-colors">Sign In</a>
-                </li>
-                <li>
-                  <a href="/register" className="text-sm text-gray-600 hover:text-yellow-600 transition-colors">Get Started</a>
-                </li>
-                <li>
-                  <a href="/profile" className="text-sm text-gray-600 hover:text-yellow-600 transition-colors">My Profile</a>
-                </li>
-                <li>
-                  <a href="/settings" className="text-sm text-gray-600 hover:text-yellow-600 transition-colors">Settings</a>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="mt-8 border-t border-gray-200 pt-8">
-            <p className="text-center text-sm text-gray-500">
-              © {new Date().getFullYear()} TRecs - The Recommendations. All rights reserved.
-            </p>
           </div>
         </div>
       </footer>
