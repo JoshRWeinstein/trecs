@@ -11,7 +11,7 @@ export default function LayoutContent({
   children: React.ReactNode
 }) {
   const pathname = usePathname()
-  const showAddRecButton = pathname !== '/add-rec' && pathname !== '/register'
+  const showAddRecButton = pathname !== '/add-rec' && pathname !== '/register' && pathname !== '/login'
 
   return (
     <div className="min-h-screen flex flex-col">
