@@ -48,11 +48,8 @@ export default function Home() {
             <h1 className="text-5xl font-bold mb-6 text-center">
               Welcome to <span className="text-black">TRecs</span>
             </h1>
-            <p className="text-xl mb-4 text-gray-600 text-center max-w-2xl mx-auto">
+            <p className="text-xl mb-8 text-gray-600 text-center max-w-2xl mx-auto">
               Save, discover, and share before they go the way of the dinosaur.
-            </p>
-            <p className="text-lg mb-8 text-gray-500 text-center max-w-2xl mx-auto">
-              Find and preserve the best places to visit.
             </p>
             <div className="flex gap-4 justify-center">
               <Link 
